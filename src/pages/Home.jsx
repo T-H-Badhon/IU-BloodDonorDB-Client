@@ -1,6 +1,7 @@
 import React from 'react';
 import NavBar from '../components/Navbar';
 import SliderComp from '../components/SliderComp';
+import WhyWhoBlock from '../components/WhyWhoBlock';
 
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
         <div>
             <NavBar></NavBar>
             <SliderComp></SliderComp>
+            <WhyWhoBlock></WhyWhoBlock>
         </div>
     );
 };
