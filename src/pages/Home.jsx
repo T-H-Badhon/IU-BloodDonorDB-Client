@@ -10,12 +10,10 @@ import BDFooter from '../components/BDFooter';
 const Home = () => {
     return (
         <div>
-            <NavBar></NavBar>
             <SliderComp></SliderComp>
             <WhyWhoBlock></WhyWhoBlock>
             <DonorSearch></DonorSearch>
             <Network></Network>
-            <BDFooter></BDFooter>
         </div>
     );
 };
