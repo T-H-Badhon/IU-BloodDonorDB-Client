@@ -4,13 +4,13 @@ import { Button, Label, Radio, Dropdown } from 'flowbite-react';
 
 const DonorSearch = () => {
     return (
-        <div className='container mx-auto md:h-36 my-20 rounded-lg bg-red-600'>
-            <form className="flex flex-col gap-5 p-5 md:flex-row justify-around items-center">
+        <div className='container mx-auto md:h-36 my-20  '>
+            <form className="flex flex-col gap-5 md:mx-20 p-5 md:flex-row justify-around items-center bg-red-600 rounded-lg">
                 <div className="mb-2 block ">
                     <Label className='text-xl text-white' value="Blood Group" />
                     <fieldset className="grid grid-cols-4 max-w-md gap-4">
                         <div className="flex items-center gap-2">
-                            <Radio id="A+" name="countries" value="A+" defaultChecked />
+                            <Radio id="A+" name="countries" value="A+"  />
                             <Label className=' text-white' htmlFor="A+">A+</Label>
                         </div>
                         <div className="flex items-center gap-2">
@@ -26,7 +26,7 @@ const DonorSearch = () => {
                             <Label className=' text-white' htmlFor="O+">O+</Label>
                         </div>
                         <div className="flex items-center gap-2">
-                            <Radio id="A-" name="countries" value="A-" defaultChecked />
+                            <Radio id="A-" name="countries" value="A-"  />
                             <Label className=' text-white' htmlFor="A-">A-</Label>
                         </div>
                         <div className="flex items-center gap-2">
