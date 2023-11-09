@@ -51,7 +51,6 @@ const DonorSearch = () => {
                             <option className='text-lg '>Kushtia</option>
                             <option className='text-lg '>Jhinaidah</option>
                             <option className='text-lg '>Sheikhpara</option>
-                            <option className='text-lg '>shailkupa</option>
                         </Select>
                     </div>
                 </div>

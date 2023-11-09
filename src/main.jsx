@@ -7,6 +7,7 @@ import {
 import './index.css'
 import Home from './pages/Home';
 import Main from './pages/Main';
+import RegistrationForm from './pages/RegistrationForm';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home></Home>
+      },
+      {
+        path: 'registration',
+        element: <RegistrationForm></RegistrationForm>
       }
     ]
   },
