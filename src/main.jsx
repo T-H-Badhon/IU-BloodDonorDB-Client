@@ -8,6 +8,7 @@ import './index.css'
 import Home from './pages/Home';
 import Main from './pages/Main';
 import RegistrationForm from './pages/RegistrationForm';
+import Login from './pages/Login';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,11 @@ const router = createBrowserRouter([
       {
         path: 'registration',
         element: <RegistrationForm></RegistrationForm>
+      },
+      {
+        path: 'login',
+        element:<Login></Login>
+
       }
     ]
   },
