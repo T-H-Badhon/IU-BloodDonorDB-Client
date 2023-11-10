@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Main from './pages/Main';
 import RegistrationForm from './pages/RegistrationForm';
 import Login from './pages/Login';
+import AddBloodRequest from './pages/AddBloodRequest';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
         path: 'login',
         element:<Login></Login>
 
+      },
+      {
+        path: "addBloodRequest",
+        element: <AddBloodRequest></AddBloodRequest>
       }
     ]
   },

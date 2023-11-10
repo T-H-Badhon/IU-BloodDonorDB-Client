@@ -86,7 +86,7 @@ const RegistrationForm = () => {
                 <Button color='failure' type="submit">Register new account</Button>
             </form>
             <div className='max-w-xl mx-auto my-5'>
-                <h1 className='flex'>Alreay have account?<button className='flex ml-2 font-bold text-green-500'>Login <ArrowLeftOnRectangleIcon className='ml-2 h-6 w-6'></ArrowLeftOnRectangleIcon></button></h1>
+                <Link className='flex' to='/login'>Alreay have account?<button className='flex ml-2 font-bold text-green-500'>Login <ArrowLeftOnRectangleIcon className='ml-2 h-6 w-6'></ArrowLeftOnRectangleIcon></button></Link>
             </div>
 
         </div>

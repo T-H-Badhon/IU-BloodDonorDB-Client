@@ -9,7 +9,7 @@ const SliderComp = () => {
         <div className=" h-56 sm:h-64 xl:h-80 2xl:h-96 container mx-auto md:px-10">
             <Carousel pauseOnHover>
                 <div>
-                    <img src={bg3} className='w-full lg:w-11/12 h-full' alt="" />
+                    <img src={bg3} className='w-full mx-auto lg:w-11/12 h-full' alt="" />
                 </div>
                 <div className="relative overflow-hidden rounded-lg text-center">
                     <img src={bg1} className='w-full' alt="" />
