@@ -10,6 +10,8 @@ import Main from './pages/Main';
 import RegistrationForm from './pages/RegistrationForm';
 import Login from './pages/Login';
 import AddBloodRequest from './pages/AddBloodRequest';
+import Profile from './pages/Profile';
+import UpdateProfile from './pages/UpdateProfile';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,14 @@ const router = createBrowserRouter([
       {
         path: "addBloodRequest",
         element: <AddBloodRequest></AddBloodRequest>
+      },
+      {
+        path:'profile',
+        element: <Profile></Profile>
+      },
+      {
+        path:'update',
+        element: <UpdateProfile></UpdateProfile>
       }
     ]
   },

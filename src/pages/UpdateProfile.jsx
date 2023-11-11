@@ -1,13 +1,11 @@
 import React from 'react';
 import { Button, Label, TextInput, Select } from 'flowbite-react';
 import { Link } from 'react-router-dom';
-import { ArrowLeftOnRectangleIcon } from '@heroicons/react/24/solid'
 
-
-const RegistrationForm = () => {
+const UpdateProfile = () => {
     return (
         <div className='container mx-auto md:h-5/6 md:my-32'>
-            <h1 className='text-center font-bold text-red-600 text-xl mb-10'>REGISTER & be DONOR , NOW</h1>
+            <h1 className='text-center font-bold text-red-600 text-xl mb-10'>Update Information</h1>
             <form className="flex max-w-xl mx-auto flex-col gap-4 ">
                 <div className='md:grid grid-cols-3 gap-5'>
                     <div className='md:col-span-2'>
@@ -70,28 +68,11 @@ const RegistrationForm = () => {
                         </div>
                     </div>
                 </div>
-
-
-                <div>
-                    <div className="mb-2 block">
-                        <Label htmlFor="password2" value="Your password" />
-                    </div>
-                    <TextInput id="password2" type="password" required shadow />
-                </div>
-                <div>
-                    <div className="mb-2 block">
-                        <Label htmlFor="repeat-password" value="Repeat password" />
-                    </div>
-                    <TextInput id="repeat-password" type="password" required shadow />
-                </div>
-                <Button color='failure' type="submit">Register new account</Button>
+                <Button color='failure' type="submit">Update Now</Button>
             </form>
-            <div className='max-w-xl mx-auto my-5'>
-                <Link className='flex' to='/login'>Alreay have account?<button className='flex ml-2 font-bold text-green-500'>Login <ArrowLeftOnRectangleIcon className='ml-2 h-6 w-6'></ArrowLeftOnRectangleIcon></button></Link>
-            </div>
 
         </div>
     );
 };
 
-export default RegistrationForm;
+export default UpdateProfile;

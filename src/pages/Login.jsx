@@ -5,6 +5,7 @@ import { Button, Label, TextInput } from 'flowbite-react';
 const Login = () => {
     return (
         <div className='container max-w-md mx-auto h-3/4 md:my-36'>
+            <h1 className='text-center font-bold text-red-600 text-xl mb-10'>LOGIN</h1>
             <div>
                 <form className="flex  mx-auto flex-col gap-4">
                     <div>

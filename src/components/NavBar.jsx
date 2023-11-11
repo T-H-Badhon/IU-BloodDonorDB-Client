@@ -7,16 +7,16 @@ const NavBar = () => {
     return (
         <div>
             <Navbar fluid rounded className='container my-10 mx-auto'>
-                <Navbar.Brand href="https://flowbite-react.com">
+                <Navbar.Brand href='/'>
                     <img src={logo} className="mr-3 h-9 sm:h-9" alt="Flowbite React Logo" />
                     <span className="self-center whitespace-nowrap text-xl text-red-600 font-semibold dark:text-white">IU DonorDB</span>
                 </Navbar.Brand>
                 <div className="flex md:order-2">
-                    <Button color='failure'>Sign In</Button>
+                    <Link to='login'><Button color='failure'>Sign In</Button></Link>
                     <Navbar.Toggle />
                 </div>
                 <Navbar.Collapse>
-                    <Navbar.Link className='text-red-600 hover:text-xl' href="#">Home</Navbar.Link>
+                    <Link className='text-red-600 hover:text-xl' to='/'>Home</Link>
                     <Navbar.Link className='text-red-600 hover:text-xl' href="#">Find Donor</Navbar.Link>
                     <Link className='text-red-600 hover:text-xl' to="/registration">Be a Donor</Link>
                     <Link className='text-red-600 hover:text-xl' to="/addBloodRequest">Add Blood Request</Link>
