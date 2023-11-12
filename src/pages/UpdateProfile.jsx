@@ -68,7 +68,7 @@ const UpdateProfile = () => {
                         </div>
                     </div>
                 </div>
-                <Button color='failure' type="submit">Update Now</Button>
+                <Link to=''><Button color='failure' type="submit">Update Now</Button></Link>
             </form>
 
         </div>

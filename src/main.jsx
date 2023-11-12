@@ -12,6 +12,8 @@ import Login from './pages/Login';
 import AddBloodRequest from './pages/AddBloodRequest';
 import Profile from './pages/Profile';
 import UpdateProfile from './pages/UpdateProfile';
+import WhoCanDonate from './pages/WhoCanDonate';
+import AboutUs from './pages/AboutUs';
 
 const router = createBrowserRouter([
   {
@@ -42,6 +44,14 @@ const router = createBrowserRouter([
       {
         path:'update',
         element: <UpdateProfile></UpdateProfile>
+      },
+      {
+        path: 'whocandonate',
+        element: <WhoCanDonate></WhoCanDonate>
+      },
+      {
+        path: 'aboutus',
+        element: <AboutUs></AboutUs>
       }
     ]
   },

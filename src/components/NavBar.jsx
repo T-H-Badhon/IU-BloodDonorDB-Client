@@ -21,7 +21,7 @@ const NavBar = () => {
                     <Link className='text-red-600 hover:text-xl' to="/registration">Be a Donor</Link>
                     <Link className='text-red-600 hover:text-xl' to="/addBloodRequest">Add Blood Request</Link>
                     <Navbar.Link className='text-red-600 hover:text-xl' href="#">Blogs</Navbar.Link>
-                    <Navbar.Link className='text-red-600 hover:text-xl' href="#">About Us</Navbar.Link>
+                    <Link className='text-red-600 hover:text-xl' to='/aboutus'>About Us</Link>
                     
                 </Navbar.Collapse>
             </Navbar>
