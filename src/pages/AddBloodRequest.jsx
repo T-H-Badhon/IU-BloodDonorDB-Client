@@ -2,7 +2,7 @@ import { Button, Label, TextInput, Select, Datepicker } from "flowbite-react";
 
 const AddBloodRequest = () => {
   return (
-    <div className="container mx-auto md:my-36">
+    <div className="container mx-auto md:h-5/6 md:my-36">
       <form className="flex mx-auto  max-w-md flex-col gap-4">
         <div className="md:grid grid-cols-2 gap-5">
           <div className="">

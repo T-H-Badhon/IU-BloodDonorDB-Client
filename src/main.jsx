@@ -11,9 +11,9 @@ import Profile from "./pages/Profile";
 import UpdateProfile from "./pages/UpdateProfile";
 import WhoCanDonate from "./pages/WhoCanDonate";
 import AboutUs from "./pages/AboutUs";
-import DonorSearch from "./components/DonorSearch";
 import BeAwareOfFraud from "./pages/BeAwareOfFraud";
 import DonorList from "./pages/DonorList";
+import FindDonor from "./pages/FindDonor";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
       },
       {
         path: "findDonor",
-        element: <DonorSearch></DonorSearch>,
+        element: <FindDonor></FindDonor>,
       },
       {
         path: "donorList",

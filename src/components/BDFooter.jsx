@@ -31,7 +31,11 @@ const BDFooter = () => {
             </Footer.LinkGroup>
           </div>
           <Footer.Divider />
-          <Footer.Copyright href="#" by="Rakib Hasan, CSE, IU" year={2023} />
+          <Footer.Copyright
+            href="#"
+            by="MD. Tanvir Hasan, CSE, IU"
+            year={2024}
+          />
         </div>
       </Footer>
     </div>
