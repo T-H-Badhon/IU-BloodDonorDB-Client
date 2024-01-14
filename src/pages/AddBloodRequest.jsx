@@ -1,9 +1,28 @@
 import { Button, Label, TextInput, Select, Datepicker } from "flowbite-react";
 
 const AddBloodRequest = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const bloodGroup = event.target.bloodGroup.value;
+    const requestArea = event.target.requestArea.value;
+    const name = event.target.name.value;
+    const phone = event.target.phone.value;
+    const date = event.target.date.value;
+    const reason = event.target.reason.value;
+
+    console.log(bloodGroup, requestArea, name, phone, date, reason);
+  };
+
   return (
     <div className="container mx-auto md:h-5/6 md:my-36">
-      <form className="flex mx-auto  max-w-md flex-col gap-4">
+      <h1 className="text-center font-bold text-red-600 text-xl mb-10">
+        Add Blood Request
+      </h1>
+      <form
+        onSubmit={handleSubmit}
+        className="flex mx-auto  max-w-md flex-col gap-4"
+      >
         <div className="md:grid grid-cols-2 gap-5">
           <div className="">
             <div className="mb-2 block">

@@ -1,12 +1,23 @@
 import { Button, Label, Radio, Select } from "flowbite-react";
 
 const DonorSearch = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const bloodGroup = event.target.bloodGroup.value;
+    const area = event.target.area.value;
+    const donorType = event.target.donorType.value;
+    console.log(bloodGroup, area, donorType);
+  };
   return (
     <div className="container mx-auto md:h-36  my-20  ">
       <h1 className="text-3xl text-red-600 text-center font-bold p-2">
         Search Donor
       </h1>
-      <form className="flex flex-col gap-5 md:mx-20 p-5 md:flex-row justify-around items-center bg-red-600 rounded-lg">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-5 md:mx-20 p-5 md:flex-row justify-around items-center bg-red-600 rounded-lg"
+      >
         <div className="mb-2 block ">
           <Label className="text-xl text-white" value="Blood Group" />
           <fieldset className="grid grid-cols-4 max-w-md gap-4">

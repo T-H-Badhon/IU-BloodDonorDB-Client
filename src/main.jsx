@@ -14,6 +14,9 @@ import AboutUs from "./pages/AboutUs";
 import BeAwareOfFraud from "./pages/BeAwareOfFraud";
 import DonorList from "./pages/DonorList";
 import FindDonor from "./pages/FindDonor";
+import Blogs from "./pages/Blogs";
+import AllBloodRequest from "./pages/AllBloodRequest";
+import AuthProvider from "./providers/AuthProvider";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "addBloodRequest",
         element: <AddBloodRequest></AddBloodRequest>,
+      },
+      {
+        path: "allBloodRequest",
+        element: <AllBloodRequest></AllBloodRequest>,
       },
       {
         path: "findDonor",
@@ -64,12 +71,18 @@ const router = createBrowserRouter([
         path: "aboutus",
         element: <AboutUs></AboutUs>,
       },
+      {
+        path: "blogs",
+        element: <Blogs></Blogs>,
+      },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );

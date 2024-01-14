@@ -1,13 +1,31 @@
 import { Button, Label, TextInput } from "flowbite-react";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Login = () => {
+  const { logIn } = useContext(AuthContext);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const email = event.target.email1.value;
+    const password = event.target.password1.value;
+
+    console.log(email, password);
+
+    const loginCredential = {
+      email,
+      password,
+    };
+    logIn(loginCredential);
+  };
+
   return (
-    <div className="container max-w-md mx-auto h-3/4 md:my-36">
+    <div className="container max-w-md mx-auto h-3/4 md:my-44">
       <h1 className="text-center font-bold text-red-600 text-xl mb-10">
         LOGIN
       </h1>
       <div>
-        <form className="flex  mx-auto flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex  mx-auto flex-col gap-4">
           <div>
             <div className="mb-2 block">
               <Label htmlFor="email1" value="Your email" />
@@ -29,14 +47,6 @@ const Login = () => {
             Submit
           </Button>
         </form>
-      </div>
-      <div>
-        <h1 className="text-lg text-red-600 text-center font-bold my-3">OR</h1>
-      </div>
-      <div>
-        <Button color="failure" className="w-full">
-          Login with Google
-        </Button>
       </div>
     </div>
   );

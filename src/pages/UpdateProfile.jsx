@@ -1,13 +1,30 @@
 import { Button, Label, TextInput, Select } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 const UpdateProfile = () => {
+  const { user } = useContext(AuthContext);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const name = event.target.name.value;
+    const bloodGroup = event.target.bloodGroup.value;
+    const email = event.target.email.value;
+    const phone = event.target.phone.value;
+    const presentAddress = event.target.presentAddress.value;
+    const donorArea = event.target.donorArea.value;
+
+    console.log(name, bloodGroup, email, phone, presentAddress, donorArea);
+  };
   return (
     <div className="container mx-auto md:h-5/6 md:my-32">
       <h1 className="text-center font-bold text-red-600 text-xl mb-10">
         Update Information
       </h1>
-      <form className="flex max-w-xl mx-auto flex-col gap-4 ">
+      <form
+        onSubmit={handleSubmit}
+        className="flex max-w-xl mx-auto flex-col gap-4 "
+      >
         <div className="md:grid grid-cols-3 gap-5">
           <div className="md:col-span-2">
             <div className="mb-2 block">
@@ -17,6 +34,7 @@ const UpdateProfile = () => {
               id="name"
               type="text"
               placeholder="Name"
+              defaultValue={user.name}
               required
               shadow
             />
@@ -27,7 +45,7 @@ const UpdateProfile = () => {
             </div>
             <div className="">
               <Select id="bloodGroup" required>
-                <option className="text-lg ">Blood Group</option>
+                <option className="text-lg ">{user.bloodGroup} </option>
                 <option className="text-lg ">A+</option>
                 <option className="text-lg ">B+</option>
                 <option className="text-lg ">O+</option>
@@ -49,6 +67,7 @@ const UpdateProfile = () => {
               id="email"
               type="email"
               placeholder="example@email.com"
+              defaultValue={user.email}
               required
               shadow
             />
@@ -61,6 +80,7 @@ const UpdateProfile = () => {
               id="phone"
               type="text"
               placeholder="017XXXXXXXX"
+              defaultValue={user.phone}
               required
               shadow
             />
@@ -75,6 +95,7 @@ const UpdateProfile = () => {
               id="presentAddress"
               type="text"
               placeholder="Address"
+              defaultValue={user.presentAddress}
               required
               shadow
             />
@@ -85,7 +106,7 @@ const UpdateProfile = () => {
             </div>
             <div className="">
               <Select id="donorArea" required>
-                <option className="text-lg ">Select Area</option>
+                <option className="text-lg ">{user.area}</option>
                 <option className="text-lg ">Kushtia</option>
                 <option className="text-lg ">Jhinaidah</option>
                 <option className="text-lg ">Sheikhpara</option>
@@ -93,11 +114,9 @@ const UpdateProfile = () => {
             </div>
           </div>
         </div>
-        <Link to="">
-          <Button color="failure" type="submit">
-            Update Now
-          </Button>
-        </Link>
+        <Button color="failure" type="submit">
+          Update Now
+        </Button>
       </form>
     </div>
   );

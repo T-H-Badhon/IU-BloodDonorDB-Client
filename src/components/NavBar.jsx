@@ -1,8 +1,11 @@
 import { Button, Navbar } from "flowbite-react";
 import logo from "../assets/logo-removebg-preview.png";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 const NavBar = () => {
+  const { user } = useContext(AuthContext);
   return (
     <div>
       <Navbar fluid rounded className="container my-10 mx-auto">
@@ -17,9 +20,16 @@ const NavBar = () => {
           </span>
         </Navbar.Brand>
         <div className="flex md:order-2">
-          <Link to="login">
-            <Button color="failure">Sign In</Button>
-          </Link>
+          {user ? (
+            <Link to="/profile">
+              <Button color="failure">Profile</Button>
+            </Link>
+          ) : (
+            <Link to="login">
+              <Button color="failure">Sign In</Button>
+            </Link>
+          )}
+
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
@@ -35,9 +45,12 @@ const NavBar = () => {
           <Link className="text-red-600 hover:text-xl" to="/addBloodRequest">
             Add Blood Request
           </Link>
-          <Navbar.Link className="text-red-600 hover:text-xl" href="#">
+          <Link className="text-red-600 hover:text-xl" to="/allBloodRequest">
+            All Blood Requests
+          </Link>
+          <Link className="text-red-600 hover:text-xl" to="/blogs">
             Blogs
-          </Navbar.Link>
+          </Link>
           <Link className="text-red-600 hover:text-xl" to="/aboutus">
             About Us
           </Link>

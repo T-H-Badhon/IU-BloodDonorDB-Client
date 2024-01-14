@@ -1,14 +1,45 @@
 import { Button, Label, TextInput, Select } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/solid";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 const RegistrationForm = () => {
+  const { createUser } = useContext(AuthContext);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const name = event.target.name.value;
+    const bloodGroup = event.target.bloodGroup.value;
+    const email = event.target.email.value;
+    const phone = event.target.phone.value;
+    const presentAddress = event.target.presentAddress.value;
+    const donorArea = event.target.donorArea.value;
+    const password2 = event.target.password2.value;
+    const repeatPassword = event.target.repeatPassword.value;
+    const userDate = {
+      name,
+      bloodGroup,
+      email,
+      phone,
+      presentAddress,
+      donorArea,
+      password2,
+      repeatPassword,
+    };
+    createUser(userDate);
+    event.target.reset();
+  };
+
   return (
     <div className="container mx-auto md:h-5/6 md:my-32">
       <h1 className="text-center font-bold text-red-600 text-xl mb-10">
         REGISTER & be DONOR , NOW
       </h1>
-      <form className="flex max-w-xl mx-auto flex-col gap-4 ">
+      <form
+        onSubmit={handleSubmit}
+        className="flex max-w-xl mx-auto flex-col gap-4 "
+      >
         <div className="md:grid grid-cols-3 gap-5">
           <div className="md:col-span-2">
             <div className="mb-2 block">
@@ -103,9 +134,9 @@ const RegistrationForm = () => {
         </div>
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="repeat-password" value="Repeat password" />
+            <Label htmlFor="repeatPassword" value="Repeat password" />
           </div>
-          <TextInput id="repeat-password" type="password" required shadow />
+          <TextInput id="repeatPassword" type="password" required shadow />
         </div>
         <Button color="failure" type="submit">
           Register new account
