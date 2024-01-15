@@ -5,8 +5,8 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { HiOutlineBadgeCheck, HiXCircle } from "react-icons/hi";
 
-const RegistrationForm = () => {
-  const { createDonor } = useContext(AuthContext);
+const AdminRegistration = () => {
+  const { createAdmin } = useContext(AuthContext);
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
@@ -21,18 +21,19 @@ const RegistrationForm = () => {
     const area = event.target.donorArea.value;
     const password = event.target.password2.value;
     const repeatPassword = event.target.repeatPassword.value;
+    const superAdminKey = event.target.superAdminKey.value;
     const userDate = {
       password,
       email,
       phone,
     };
-    const donorData = {
+    const adminData = {
       name,
       bloodGroup,
       area,
       address,
     };
-    createDonor(userDate, donorData)
+    createAdmin(userDate, adminData, superAdminKey)
       .then((res) => res.json())
       .then((data) => {
         if (data.success == true) {
@@ -43,6 +44,7 @@ const RegistrationForm = () => {
       });
     event.target.reset();
   };
+
   const goToLogin = () => {
     setOpenModal(false);
     navigate("/login");
@@ -97,15 +99,10 @@ const RegistrationForm = () => {
           </Modal.Body>
         </Modal>
       </div>
-      <div className="container max-w-2xl mx-auto md:h-5/6 md:my-32">
-        <div className="flex justify-between mb-5">
-          <h1 className=" font-bold text-red-600 text-xl mb-10">
-            Register & be Donor , Now
-          </h1>
-          <Link to="/adminRegistration">
-            <Button color="blue">Register as Admin</Button>
-          </Link>
-        </div>
+      <div className="container mx-auto md:h-5/6 md:my-32">
+        <h1 className="text-center font-bold text-red-600 text-xl mb-10">
+          Register as Admin
+        </h1>
         <form
           onSubmit={handleSubmit}
           className="flex max-w-xl mx-auto flex-col gap-4 "
@@ -208,6 +205,12 @@ const RegistrationForm = () => {
             </div>
             <TextInput id="repeatPassword" type="password" required shadow />
           </div>
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="superAdminKey" value="Super Admin Key" />
+            </div>
+            <TextInput id="superAdminKey" type="password" required shadow />
+          </div>
           <Button color="failure" type="submit">
             Register new account
           </Button>
@@ -226,4 +229,4 @@ const RegistrationForm = () => {
   );
 };
 
-export default RegistrationForm;
+export default AdminRegistration;

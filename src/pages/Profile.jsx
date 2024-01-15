@@ -48,7 +48,7 @@ const Profile = () => {
             <h1>Blood Group</h1>
           </div>
           <div className="col-span-3">
-            <h1>{user.bloodGroup}</h1>
+            <h1>{user?.bloodGroup}</h1>
           </div>
           <div className="col-span-1">
             <h1>Email</h1>
@@ -66,25 +66,25 @@ const Profile = () => {
             <h1>Present Address</h1>
           </div>
           <div className="col-span-3">
-            <h1>{user.presentAddress}</h1>
+            <h1>{user?.address}</h1>
           </div>
           <div className="col-span-1">
             <h1>Prefered Area:</h1>
           </div>
           <div className="col-span-3">
-            <h1>{user.area}</h1>
+            <h1>{user?.area}</h1>
           </div>
           <div className="col-span-1">
             <h1>Status:</h1>
           </div>
           <div className="col-span-3">
-            <h1>{user.status}</h1>
+            <h1>{user?.isAvailable}</h1>
           </div>
           <div className="col-span-1">
             <h1>Last donate Date:</h1>
           </div>
           <div className="col-span-3">
-            <h1>{user.lastDonateDate}</h1>
+            <h1>{user?.lastDonateDate}</h1>
           </div>
         </div>
       </div>

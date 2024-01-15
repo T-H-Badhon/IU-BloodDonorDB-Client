@@ -17,6 +17,7 @@ import FindDonor from "./pages/FindDonor";
 import Blogs from "./pages/Blogs";
 import AllBloodRequest from "./pages/AllBloodRequest";
 import AuthProvider from "./providers/AuthProvider";
+import AdminRegistration from "./pages/AdminRegistration";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "registration",
         element: <RegistrationForm></RegistrationForm>,
+      },
+      {
+        path: "adminRegistration",
+        element: <AdminRegistration></AdminRegistration>,
       },
       {
         path: "login",

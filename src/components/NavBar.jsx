@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 
 const NavBar = () => {
-  const { user } = useContext(AuthContext);
+  const { authorized } = useContext(AuthContext);
   return (
     <div>
       <Navbar fluid rounded className="container my-10 mx-auto">
@@ -20,7 +20,7 @@ const NavBar = () => {
           </span>
         </Navbar.Brand>
         <div className="flex md:order-2">
-          {user ? (
+          {authorized ? (
             <Link to="/profile">
               <Button color="failure">Profile</Button>
             </Link>

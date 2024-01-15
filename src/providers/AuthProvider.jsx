@@ -13,17 +13,58 @@ const AuthProvider = ({ children }) => {
     status: "Not provided",
     lastDonateDate: "Not provided",
   };
-  const [user, setUser] = useState(initialUser);
+  const [authorized, setAuthorize] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const createUser = (userData) => {
-    console.log(userData);
+  const createAdmin = (userData, adminData, superAdminKey) => {
+    const newAdmin = {
+      userData,
+      adminData,
+    };
+    return fetch("http://localhost:5000/api/auth/registerAdmin", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        Authorization: superAdminKey,
+      },
+      body: JSON.stringify(newAdmin),
+    });
   };
+
+  const createDonor = (userData, donorData) => {
+    const newDonor = {
+      userData,
+      donorData,
+    };
+    return fetch("http://localhost:5000/api/auth/registerDonor", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newDonor),
+    });
+  };
+
   const updateUser = (updateData) => {
     console.log(updateData);
   };
   const logIn = (loginCredential) => {
-    console.log(loginCredential);
+    const loginData = {
+      loginCredential,
+    };
+    fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(loginData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        localStorage.setItem("AC_token", data.result.token);
+        setAuthorize(true);
+        console.log(data);
+      });
   };
 
   const logOut = () => {
@@ -34,9 +75,10 @@ const AuthProvider = ({ children }) => {
   };
 
   const authInfo = {
-    user,
+    authorized,
     loading,
-    createUser,
+    createAdmin,
+    createDonor,
     updateUser,
     logIn,
     logOut,
