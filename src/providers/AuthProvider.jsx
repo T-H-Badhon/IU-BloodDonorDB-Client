@@ -68,7 +68,27 @@ const AuthProvider = ({ children }) => {
   };
 
   const logOut = () => {
+    setAuthorize(false);
+    localStorage.removeItem("AC_token");
     console.log("logOut");
+  };
+
+  const changePassword = (changePasswordCredential) => {
+    const changePasswordData = {
+      changePasswordCredential,
+    };
+    fetch("http://localhost:5000/api/auth/change-password", {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+        authorization: localStorage.getItem("AC_token"),
+      },
+      body: JSON.stringify(changePasswordData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
   };
   const deleteProfile = () => {
     console.log("deleteProfile");
@@ -82,6 +102,7 @@ const AuthProvider = ({ children }) => {
     updateUser,
     logIn,
     logOut,
+    changePassword,
     deleteProfile,
   };
 

@@ -18,6 +18,7 @@ import Blogs from "./pages/Blogs";
 import AllBloodRequest from "./pages/AllBloodRequest";
 import AuthProvider from "./providers/AuthProvider";
 import AdminRegistration from "./pages/AdminRegistration";
+import ChangePassword from "./pages/ChangePassword";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
       {
         path: "update",
         element: <UpdateProfile></UpdateProfile>,
+      },
+      {
+        path: "changePassword",
+        element: <ChangePassword></ChangePassword>,
       },
       {
         path: "whocandonate",
