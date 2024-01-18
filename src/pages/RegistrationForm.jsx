@@ -1,15 +1,24 @@
-import { Button, Label, TextInput, Select, Modal } from "flowbite-react";
-import { Link, useNavigate } from "react-router-dom";
+/* eslint-disable react/no-unescaped-entities */
+import {
+  Button,
+  Label,
+  TextInput,
+  Select,
+  Modal,
+  Spinner,
+} from "flowbite-react";
 import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/solid";
 import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { HiOutlineBadgeCheck, HiXCircle } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 const RegistrationForm = () => {
   const { createDonor } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const [openModal, setOpenModal] = useState(false);
-  const [errorModal, setErrorModal] = useState(false);
+  const [responseModal, setResponseModal] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [localLoading, setLocalLoading] = useState(false);
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -21,80 +30,107 @@ const RegistrationForm = () => {
     const area = event.target.donorArea.value;
     const password = event.target.password2.value;
     const repeatPassword = event.target.repeatPassword.value;
+    if (password !== repeatPassword) {
+      setMessage(
+        <>
+          <Modal.Body>
+            <div className="text-center">
+              <HiXCircle className="mx-auto mb-4 h-14 w-14 text-red-800 dark:text-gray-200" />
+              <h3 className="mb-5 text-2xl font-bold text-red-800 dark:text-gray-400">
+                Oops!
+              </h3>
+              <p>
+                It seems like the passwords you entered don't match. Please
+                double-check and try again.!
+              </p>
+            </div>
+          </Modal.Body>
+        </>
+      );
+      setResponseModal(true);
+      return;
+    }
+
     const userDate = {
       password,
       email,
-      phone,
     };
     const donorData = {
       name,
       bloodGroup,
       area,
       address,
+      phone,
     };
-    createDonor(userDate, donorData)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success == true) {
-          setOpenModal(true);
-        } else {
-          setErrorModal(true);
-        }
-      });
-    event.target.reset();
-  };
-  const goToLogin = () => {
-    setOpenModal(false);
-    navigate("/login");
+    setLocalLoading(true);
+    createDonor(userDate, donorData).then((response) => {
+      console.log(response);
+      if (response.success) {
+        setMessage(
+          <>
+            <Modal.Body>
+              <div className="text-center">
+                <HiOutlineBadgeCheck className="mx-auto mb-4 h-14 w-14 text-lime-600 dark:text-gray-200" />
+                <h3 className="mb-5 text-lg font-normal text-lime-600 dark:text-gray-400">
+                  Registration Completed Successfully!!
+                </h3>
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Link className="mx-auto" to="/">
+                <Button gradientMonochrome="lime">Go to Home</Button>
+              </Link>
+            </Modal.Footer>
+          </>
+        );
+        setLocalLoading(false);
+        setResponseModal(true);
+        event.target.reset();
+      } else {
+        setMessage(
+          <>
+            <Modal.Body>
+              <div className="text-center">
+                <HiXCircle className="mx-auto mb-4 h-14 w-14 text-red-800 dark:text-gray-200" />
+                <h3 className="mb-5 text-2xl font-bold text-red-800 dark:text-gray-400">
+                  Registration Failed!!
+                </h3>
+                <p>{response.errorMessage}</p>
+              </div>
+            </Modal.Body>
+          </>
+        );
+        setLocalLoading(false);
+        setResponseModal(true);
+      }
+    });
   };
 
   return (
     <div>
-      <div>
-        <Button onClick={() => setOpenModal(true)}>ofsofj</Button>
-        <Modal
-          show={openModal}
-          size="md"
-          onClose={() => setOpenModal(false)}
-          popup
-        >
-          <Modal.Header />
+      {localLoading ? (
+        <Modal show={localLoading} size="md" popup>
           <Modal.Body>
-            <div className="text-center">
-              <HiOutlineBadgeCheck className="mx-auto mb-4 h-14 w-14 text-lime-600 dark:text-gray-200" />
-              <h3 className="mb-5 text-lg font-normal text-lime-600 dark:text-gray-400">
-                Registration Completed Successfully!!
-              </h3>
+            <div className="text-center my-5">
+              <Spinner
+                className="text-lime-500"
+                aria-label="Extra large spinner example"
+                size="xl"
+              />
             </div>
+            <h1 className="text-center text-xl text-lime-500">Processing...</h1>
           </Modal.Body>
-          <Modal.Footer>
-            <Button
-              onClick={goToLogin}
-              className="mx-auto"
-              gradientMonochrome="lime"
-            >
-              Go to Login
-            </Button>
-          </Modal.Footer>
         </Modal>
-      </div>
+      ) : null}
       <div>
-        <Button onClick={() => setErrorModal(true)}>error</Button>
         <Modal
-          show={errorModal}
+          show={responseModal}
           size="md"
-          onClose={() => setErrorModal(false)}
+          onClose={() => setResponseModal(false)}
           popup
         >
           <Modal.Header />
-          <Modal.Body>
-            <div className="text-center">
-              <HiXCircle className="mx-auto mb-4 h-14 w-14 text-red-800 dark:text-gray-200" />
-              <h3 className="mb-5 text-lg font-normal text-red-800 dark:text-gray-400">
-                Registration Failed!!
-              </h3>
-            </div>
-          </Modal.Body>
+          {message}
         </Modal>
       </div>
       <div className="container max-w-2xl mx-auto md:h-5/6 md:my-32">

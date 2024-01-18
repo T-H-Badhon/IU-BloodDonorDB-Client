@@ -3,17 +3,8 @@ import React, { createContext, useState } from "react";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const initialUser = {
-    name: "Not provided",
-    bloodGroup: "Not provided",
-    phone: "Not provided",
-    email: "Not provided",
-    presentAddress: "Not provided",
-    area: "Not provided",
-    status: "Not provided",
-    lastDonateDate: "Not provided",
-  };
   const [authorized, setAuthorize] = useState(false);
+  const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const createAdmin = (userData, adminData, superAdminKey) => {
@@ -21,14 +12,24 @@ const AuthProvider = ({ children }) => {
       userData,
       adminData,
     };
-    return fetch("http://localhost:5000/api/auth/registerAdmin", {
+    fetch("http://localhost:5000/api/auth/registerAdmin", {
       method: "POST",
       headers: {
         "content-type": "application/json",
         Authorization: superAdminKey,
       },
       body: JSON.stringify(newAdmin),
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success == true) {
+          setAuthorize(true);
+          return true;
+        } else {
+          return false;
+        }
+      });
   };
 
   const createDonor = (userData, donorData) => {
@@ -42,7 +43,21 @@ const AuthProvider = ({ children }) => {
         "content-type": "application/json",
       },
       body: JSON.stringify(newDonor),
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success == true) {
+          localStorage.setItem("AC_token", data.data.token);
+          setAuthorize(true);
+          setRole(data.data.role);
+          return {
+            success: true,
+          };
+        } else {
+          return { success: false, errorMessage: data.errorMessage };
+        }
+      });
   };
 
   const updateUser = (updateData) => {
