@@ -7,16 +7,16 @@ const AuthProvider = ({ children }) => {
   const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const createAdmin = (userData, adminData, superAdminKey) => {
+  const createAdmin = async (userData, adminData, superAdminKey) => {
     const newAdmin = {
       userData,
       adminData,
+      superKey: superAdminKey,
     };
-    fetch("http://localhost:5000/api/auth/registerAdmin", {
+    return fetch("http://localhost:5000/api/auth/registerAdmin", {
       method: "POST",
       headers: {
         "content-type": "application/json",
-        Authorization: superAdminKey,
       },
       body: JSON.stringify(newAdmin),
     })
@@ -24,15 +24,19 @@ const AuthProvider = ({ children }) => {
       .then((data) => {
         console.log(data);
         if (data.success == true) {
+          localStorage.setItem("AC_token", data.data.token);
           setAuthorize(true);
-          return true;
+          setRole(data.data.role);
+          return {
+            success: true,
+          };
         } else {
-          return false;
+          return { success: false, errorMessage: data.errorMessage };
         }
       });
   };
 
-  const createDonor = (userData, donorData) => {
+  const createDonor = async (userData, donorData) => {
     const newDonor = {
       userData,
       donorData,
@@ -58,10 +62,6 @@ const AuthProvider = ({ children }) => {
           return { success: false, errorMessage: data.errorMessage };
         }
       });
-  };
-
-  const updateUser = (updateData) => {
-    console.log(updateData);
   };
   const logIn = (loginCredential) => {
     const loginData = {
@@ -112,9 +112,9 @@ const AuthProvider = ({ children }) => {
   const authInfo = {
     authorized,
     loading,
+    role,
     createAdmin,
     createDonor,
-    updateUser,
     logIn,
     logOut,
     changePassword,
