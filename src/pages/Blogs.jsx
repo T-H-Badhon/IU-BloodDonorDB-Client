@@ -1,40 +1,168 @@
-import { Button, Label, Modal, Textarea } from "flowbite-react";
-import React, { useState } from "react";
+import {
+  Alert,
+  Button,
+  Label,
+  Modal,
+  Spinner,
+  TextInput,
+  Textarea,
+} from "flowbite-react";
+import { useEffect, useState } from "react";
 import BlogCard from "../components/BlogCard";
+import { HiInformationCircle } from "react-icons/hi";
 
 const Blogs = () => {
-  const [openModal, setOpenModal] = useState(false);
+  const [blogModal, setBlogModal] = useState(false);
+  const [owner, setOwner] = useState(false);
+  const [alertState, setAlertState] = useState(false);
+  const [localLoading, setLocalLoading] = useState(true);
+
+  const [blogs, setBlogs] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/api/blogs/", {
+      method: "GET",
+      headers: {
+        authorization: localStorage.getItem("AC_token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setBlogs(data.data);
+        setLocalLoading(false);
+      });
+  }, []);
+
+  const deleteBlog = (id) => {
+    fetch(`http://localhost:5000/api/blogs/my-blogs/${id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: localStorage.getItem("AC_token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        myBlogs();
+      });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const blogDetail = event.target.blogDetail.value;
+    const title = event.target.title.value;
+    const details = event.target.details.value;
 
-    console.log(blogDetail);
+    const blogData = {
+      title,
+      details,
+    };
 
-    setOpenModal(false);
+    fetch("http://localhost:5000/api/blogs/create-blog", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: localStorage.getItem("AC_token"),
+      },
+      body: JSON.stringify({ blogData }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (!data.success) {
+          setAlertState(true);
+        }
+        setBlogModal(false);
+        myBlogs();
+      });
   };
+
+  const myBlogs = () => {
+    setOwner(true);
+    setLocalLoading(true);
+    fetch("http://localhost:5000/api/blogs/my-blogs", {
+      method: "GET",
+      headers: {
+        authorization: localStorage.getItem("AC_token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setBlogs(data.data);
+        setLocalLoading(false);
+      });
+  };
+
+  const allBlogs = () => {
+    setOwner(false);
+    setLocalLoading(true);
+    fetch("http://localhost:5000/api/blogs/", {
+      method: "GET",
+      headers: {
+        authorization: localStorage.getItem("AC_token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setBlogs(data.data);
+        setLocalLoading(false);
+      });
+  };
+
   return (
     <div className="container mx-auto min-h-screen">
+      {alertState ? (
+        <Alert color="failure" icon={HiInformationCircle}>
+          <span className="font-medium">Failed!</span> Try posting again.
+        </Alert>
+      ) : null}
+      {localLoading ? (
+        <Modal show={localLoading} size="md" popup>
+          <Modal.Body>
+            <div className="text-center my-5">
+              <Spinner
+                className="text-lime-500"
+                aria-label="Extra large spinner example"
+                size="xl"
+              />
+            </div>
+            <h1 className="text-center text-xl text-lime-500">Processing...</h1>
+          </Modal.Body>
+        </Modal>
+      ) : null}
       <div className="flex justify-between">
         <div>
-          <Button color="failure">My blogs</Button>
-          <Button color="failure">All blogs</Button>
+          {!owner ? (
+            <Button onClick={myBlogs} gradientMonochrome="cyan">
+              My blogs
+            </Button>
+          ) : (
+            <Button onClick={allBlogs} gradientMonochrome="cyan">
+              All blogs
+            </Button>
+          )}
         </div>
         <div>
-          <Button onClick={() => setOpenModal(true)} color="failure">
+          <Button onClick={() => setBlogModal(true)} gradientMonochrome="cyan">
             create blog
           </Button>
-          <Modal show={openModal} onClose={() => setOpenModal(false)}>
+          <Modal show={blogModal} onClose={() => setBlogModal(false)}>
             <Modal.Header>Create Blog</Modal.Header>
             <form onSubmit={handleSubmit}>
               <Modal.Body>
+                <div>
+                  <div className="mb-2 block">
+                    <Label htmlFor="title" value="Blog Title" />
+                  </div>
+                  <TextInput id="title" type="text" placeholder="Title..." />
+                </div>
                 <div className="max-w-md">
                   <div className="mb-2 block">
-                    <Label htmlFor="blogDetail" value="Your blog" />
+                    <Label htmlFor="details" value="Blog Details" />
                   </div>
                   <Textarea
-                    id="blogDetail"
+                    id="details"
                     placeholder="Write blog..."
                     required
                     rows={4}
@@ -45,7 +173,7 @@ const Blogs = () => {
                 <Button type="submit" color="failure">
                   Post
                 </Button>
-                <Button color="gray" onClick={() => setOpenModal(false)}>
+                <Button color="gray" onClick={() => setBlogModal(false)}>
                   Discard
                 </Button>
               </Modal.Footer>
@@ -53,7 +181,19 @@ const Blogs = () => {
           </Modal>
         </div>
       </div>
-      <div>{/* <BlogCard key={blog._id} blog={blog}></BlogCard> */}</div>
+      <div className="max-w-xl mx-auto">
+        <h1 className="text-xl font-bold text-cyan-500 mt-10">Blogs</h1>
+        <div className="mt-10">
+          {blogs.map((blog) => (
+            <BlogCard
+              blog={blog}
+              ownerShip={owner}
+              deleteBlog={deleteBlog}
+              key={blog?._id}
+            ></BlogCard>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

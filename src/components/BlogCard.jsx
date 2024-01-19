@@ -1,17 +1,49 @@
-import { Button, Card } from "flowbite-react";
-import React from "react";
+/* eslint-disable react/prop-types */
+import { Button, Card, Modal } from "flowbite-react";
+import { useState } from "react";
 
-const BlogCard = ({ blog }) => {
+const BlogCard = ({ blog, ownerShip, deleteBlog }) => {
+  const [detailsModal, setDetailsModal] = useState(false);
+
   return (
-    <div>
-      <Card className="max-w-sm">
+    <div className="my-5">
+      <div>
+        <Modal show={detailsModal} onClose={() => setDetailsModal(false)}>
+          <Modal.Header>
+            <h1 className="text-cyan-500">{blog.title}</h1>
+          </Modal.Header>
+          <Modal.Body>{blog.details} </Modal.Body>
+          <Modal.Footer>
+            <div>
+              {ownerShip ? (
+                <div>
+                  <Button
+                    onClick={() => deleteBlog(blog._id)}
+                    gradientMonochrome="failure"
+                  >
+                    Delete
+                  </Button>
+                </div>
+              ) : (
+                <div>
+                  <h1 className="text-sm">Author</h1>
+                  <h1 className="text-lg">{blog?.author?.name}</h1>
+                </div>
+              )}
+            </div>
+          </Modal.Footer>
+        </Modal>
+      </div>
+      <Card className="max-w-xl mx-auto">
         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          {blog.title}
+          {blog?.title}
         </h5>
         <p className="font-normal text-gray-700 dark:text-gray-400">
-          {blog.details}
+          {blog?.details.length > 150
+            ? blog.details.slice(0, 150) + "..."
+            : blog?.details}
         </p>
-        <Button color="failure">
+        <Button onClick={() => setDetailsModal(true)} size="sm" color="failure">
           Read more
           <svg
             className="-mr-1 ml-2 h-4 w-4"

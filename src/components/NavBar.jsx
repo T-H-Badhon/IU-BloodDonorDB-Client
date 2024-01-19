@@ -49,7 +49,7 @@ const NavBar = () => {
             All Blood Requests
           </Link>
           <Link className="text-red-600 hover:text-xl" to="/blogs">
-            Blogs
+            Community
           </Link>
           <Link className="text-red-600 hover:text-xl" to="/aboutus">
             About Us
