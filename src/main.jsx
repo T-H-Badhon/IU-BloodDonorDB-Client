@@ -12,13 +12,16 @@ import UpdateProfile from "./pages/UpdateProfile";
 import WhoCanDonate from "./pages/WhoCanDonate";
 import AboutUs from "./pages/AboutUs";
 import BeAwareOfFraud from "./pages/BeAwareOfFraud";
-import DonorList from "./pages/DonorList";
 import FindDonor from "./pages/FindDonor";
 import Blogs from "./pages/Blogs";
 import AllBloodRequest from "./pages/AllBloodRequest";
 import AuthProvider from "./providers/AuthProvider";
 import AdminRegistration from "./pages/AdminRegistration";
 import ChangePassword from "./pages/ChangePassword";
+import PrivateRoutes from "./routes/privateRoutes";
+import ForgetPassword from "./pages/ForgetPassword";
+import AllDonors from "./pages/AllDonors";
+import AdminRoutes from "./routes/AdminRoutes";
 
 const router = createBrowserRouter([
   {
@@ -43,31 +46,59 @@ const router = createBrowserRouter([
       },
       {
         path: "addBloodRequest",
-        element: <AddBloodRequest></AddBloodRequest>,
+        element: (
+          <PrivateRoutes>
+            <AddBloodRequest></AddBloodRequest>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "allBloodRequest",
-        element: <AllBloodRequest></AllBloodRequest>,
+        element: (
+          <PrivateRoutes>
+            <AllBloodRequest></AllBloodRequest>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "findDonor",
         element: <FindDonor></FindDonor>,
       },
       {
-        path: "donorList",
-        element: <DonorList></DonorList>,
+        path: "allDonors",
+        element: (
+          <AdminRoutes>
+            <AllDonors></AllDonors>
+          </AdminRoutes>
+        ),
       },
       {
         path: "profile",
-        element: <Profile></Profile>,
+        element: (
+          <PrivateRoutes>
+            <Profile></Profile>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "update",
-        element: <UpdateProfile></UpdateProfile>,
+        element: (
+          <PrivateRoutes>
+            <UpdateProfile></UpdateProfile>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "changePassword",
-        element: <ChangePassword></ChangePassword>,
+        element: (
+          <PrivateRoutes>
+            <ChangePassword></ChangePassword>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "forgetPassword",
+        element: <ForgetPassword></ForgetPassword>,
       },
       {
         path: "whocandonate",
@@ -83,7 +114,11 @@ const router = createBrowserRouter([
       },
       {
         path: "blogs",
-        element: <Blogs></Blogs>,
+        element: (
+          <PrivateRoutes>
+            <Blogs></Blogs>
+          </PrivateRoutes>
+        ),
       },
     ],
   },

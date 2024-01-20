@@ -22,10 +22,10 @@ const FindDonor = () => {
   return (
     <div className="container  mx-auto min-h-screen">
       <DonorSearch findDonors={findDonors}></DonorSearch>
-      <h1 className="text-2xl text-red-500 md:mt-20 mt-10 md:mb-10 mb-5 md:mx-20">
+      <h1 className="text-2xl font-bold text-red-500 md:mt-20 mt-10 md:mb-10 mb-5 md:mx-20">
         Donors:{" "}
       </h1>
-      <div className=" grid grid-cols-3 gap-4 md:mx-20">
+      <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:mx-20">
         {donors.length
           ? donors.map((donor) => (
               <DonorInfoCard donor={donor} key={donor?._id}></DonorInfoCard>

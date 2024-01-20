@@ -133,7 +133,7 @@ const UpdateProfile = () => {
               id="email"
               type="email"
               placeholder="example@email.com"
-              defaultValue={profileData?.userId.email}
+              defaultValue={profileData?.userId?.email}
               required
               shadow
               disabled

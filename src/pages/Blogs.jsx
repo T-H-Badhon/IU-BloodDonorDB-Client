@@ -7,11 +7,13 @@ import {
   TextInput,
   Textarea,
 } from "flowbite-react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import BlogCard from "../components/BlogCard";
 import { HiInformationCircle } from "react-icons/hi";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Blogs = () => {
+  const { role } = useContext(AuthContext);
   const [blogModal, setBlogModal] = useState(false);
   const [owner, setOwner] = useState(false);
   const [alertState, setAlertState] = useState(false);
@@ -33,7 +35,12 @@ const Blogs = () => {
   }, []);
 
   const deleteBlog = (id) => {
-    fetch(`http://localhost:5000/api/blogs/my-blogs/${id}`, {
+    const link =
+      role == "admin"
+        ? "http://localhost:5000/api/blogs"
+        : "http://localhost:5000/api/blogs/my-blogs";
+
+    fetch(`${link}/${id}`, {
       method: "DELETE",
       headers: {
         authorization: localStorage.getItem("AC_token"),
@@ -132,7 +139,7 @@ const Blogs = () => {
       ) : null}
       <div className="flex justify-between">
         <div>
-          {!owner ? (
+          {!owner && role == "donor" ? (
             <Button onClick={myBlogs} gradientMonochrome="cyan">
               My blogs
             </Button>
@@ -143,9 +150,14 @@ const Blogs = () => {
           )}
         </div>
         <div>
-          <Button onClick={() => setBlogModal(true)} gradientMonochrome="cyan">
-            create blog
-          </Button>
+          {role == "donor" ? (
+            <Button
+              onClick={() => setBlogModal(true)}
+              gradientMonochrome="cyan"
+            >
+              create blog
+            </Button>
+          ) : null}
           <Modal show={blogModal} onClose={() => setBlogModal(false)}>
             <Modal.Header>Create Blog</Modal.Header>
             <form onSubmit={handleSubmit}>
@@ -183,12 +195,13 @@ const Blogs = () => {
       <div className="max-w-xl mx-auto">
         <h1 className="text-2xl font-bold text-cyan-500 mt-10">Blogs:</h1>
         <div className="mt-10">
-          {blogs.length ? (
+          {blogs?.length ? (
             blogs.map((blog) => (
               <BlogCard
                 blog={blog}
                 ownerShip={owner}
                 deleteBlog={deleteBlog}
+                role={role}
                 key={blog?._id}
               ></BlogCard>
             ))

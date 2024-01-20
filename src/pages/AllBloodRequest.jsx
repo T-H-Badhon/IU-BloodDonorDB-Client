@@ -82,9 +82,9 @@ const AllBloodRequest = () => {
           )}
         </div>
       </div>
-      <h1 className="text-2xl text-red-500 my-10">Requests: </h1>
-      <div className="mt-5 grid grid-cols-3 gap-4">
-        {requests.length
+      <h1 className="text-2xl font-bold text-red-500 my-10">Requests: </h1>
+      <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {requests?.length
           ? requests.map((request) => (
               <BloodRequestCard
                 request={request}
@@ -93,7 +93,7 @@ const AllBloodRequest = () => {
             ))
           : null}
       </div>
-      {!requests.length ? (
+      {!requests?.length ? (
         <h1 className="text-3xl md:my-20 my-5 text-red-500 text-center">
           No Requests Found!
         </h1>

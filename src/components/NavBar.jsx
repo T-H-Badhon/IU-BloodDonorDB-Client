@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 
 const NavBar = () => {
-  const { authorized } = useContext(AuthContext);
+  const { authorized, role } = useContext(AuthContext);
   return (
     <div>
       <Navbar fluid rounded className="container my-10 mx-auto">
@@ -44,9 +44,15 @@ const NavBar = () => {
               Be a Donor
             </Link>
           ) : null}
-          <Link className="text-red-600 hover:text-xl" to="/addBloodRequest">
-            Add Blood Request
-          </Link>
+          {role == "donor" ? (
+            <Link className="text-red-600 hover:text-xl" to="/addBloodRequest">
+              Add Blood Request
+            </Link>
+          ) : (
+            <Link className="text-red-600 hover:text-xl" to="/allDonors">
+              All Donors
+            </Link>
+          )}
           {authorized ? (
             <>
               <Link

@@ -10,12 +10,15 @@ import { useContext, useEffect, useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
+import { MdDelete, MdDeleteForever } from "react-icons/md";
 
 const Profile = () => {
-  const { logOut, role } = useContext(AuthContext);
+  const { logOut, role, deleteProfile } = useContext(AuthContext);
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState(null);
   const [localLoading, setLocalLoading] = useState(true);
+  const [responseModal, setResponseModal] = useState(false);
+  const [message, setMessage] = useState(null);
   const signOut = () => {
     logOut();
     navigate("/");
@@ -65,6 +68,57 @@ const Profile = () => {
       });
   };
 
+  const deleteAccount = () => {
+    const link =
+      role == "admin"
+        ? "http://localhost:5000/api/admin/me"
+        : "http://localhost:5000/api/donors/donor/profile";
+
+    deleteProfile(link).then((response) => {
+      if (response.success) {
+        setMessage(
+          <>
+            <Modal.Body>
+              <div className="text-center">
+                <MdDelete className="mx-auto mb-4 h-14 w-14 text-lime-600 dark:text-gray-200" />
+                <h3 className="mb-5 text-lg font-normal text-lime-600 dark:text-gray-400">
+                  Profile deleted Successfully!!
+                </h3>
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Link className="mx-auto" to="/">
+                <Button gradientMonochrome="lime">Go to Home</Button>
+              </Link>
+            </Modal.Footer>
+          </>
+        );
+        setLocalLoading(false);
+        setResponseModal(true);
+      } else {
+        setMessage(
+          <>
+            <Modal.Body>
+              <div className="text-center">
+                <MdDeleteForever className="mx-auto mb-4 h-14 w-14 text-red-800 dark:text-gray-200" />
+                <h3 className="mb-5 text-2xl font-bold text-red-800 dark:text-gray-400">
+                  Profile delete failed!
+                </h3>
+                <p>
+                  {response?.errorMessage
+                    ? response?.errorMessage
+                    : response?.message}
+                </p>
+              </div>
+            </Modal.Body>
+          </>
+        );
+        setLocalLoading(false);
+        setResponseModal(true);
+      }
+    });
+  };
+
   return (
     <div className="container mx-auto min-h-screen">
       {localLoading ? (
@@ -81,6 +135,16 @@ const Profile = () => {
           </Modal.Body>
         </Modal>
       ) : null}
+      <Modal
+        show={responseModal}
+        size="md"
+        onClose={() => setResponseModal(false)}
+        popup
+      >
+        <Modal.Header />
+        {message}
+      </Modal>
+      ;
       <div className="max-w-4xl mx-auto">
         <div>
           <Navbar fluid rounded>
@@ -102,7 +166,7 @@ const Profile = () => {
                   <Link to="/update">Update</Link>
                 </Dropdown.Item>
                 <Dropdown.Item>
-                  <button>delete</button>
+                  <button onClick={deleteAccount}>delete</button>
                 </Dropdown.Item>
                 <Dropdown.Divider />
                 <Dropdown.Item>
@@ -137,6 +201,12 @@ const Profile = () => {
           </div>
           <div className="col-span-3">
             <h1>{profileData?.phone}</h1>
+          </div>
+          <div className="col-span-1 text-red-500 font-bold">
+            <h1>Role</h1>
+          </div>
+          <div className="col-span-3">
+            <h1>{role}</h1>
           </div>
           <div className="col-span-1 text-red-500 font-bold">
             <h1>Present Address</h1>

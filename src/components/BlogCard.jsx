@@ -2,7 +2,7 @@
 import { Button, Card, Modal } from "flowbite-react";
 import { useState } from "react";
 
-const BlogCard = ({ blog, ownerShip, deleteBlog }) => {
+const BlogCard = ({ blog, ownerShip, deleteBlog, role }) => {
   const [detailsModal, setDetailsModal] = useState(false);
 
   return (
@@ -15,7 +15,7 @@ const BlogCard = ({ blog, ownerShip, deleteBlog }) => {
           <Modal.Body>{blog.details} </Modal.Body>
           <Modal.Footer>
             <div>
-              {ownerShip ? (
+              {ownerShip || role == "admin" ? (
                 <div>
                   <Button
                     onClick={() => deleteBlog(blog._id)}

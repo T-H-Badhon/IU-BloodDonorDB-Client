@@ -49,7 +49,7 @@ const Login = () => {
           <>
             <Modal.Body>
               <div className="text-center">
-                <HiXCircle className="mx-auto mb-4 h-14 w-14 text-red-800 dark:text-gray-200" />
+                <HiXCircle className="mx-auto mb-4 h-14 w-14 text-red-600 dark:text-gray-200" />
                 <h3 className="mb-5 text-2xl font-bold text-red-800 dark:text-gray-400">
                   Login Failed!!
                 </h3>
@@ -112,6 +112,11 @@ const Login = () => {
               <Label htmlFor="password1" value="Your password" />
             </div>
             <TextInput id="password1" type="password" required />
+          </div>
+          <div>
+            <Link className="text-red-800" to="/forgetPassword">
+              forget password?
+            </Link>
           </div>
           <Button color="failure" type="submit">
             Submit

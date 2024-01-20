@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Button, Label, Modal, Spinner, TextInput } from "flowbite-react";
 import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
@@ -14,7 +15,28 @@ const ChangePassword = () => {
 
     const currentPassword = event.target.currentPassword.value;
     const newPassword = event.target.password2.value;
-    // const repeatPassword = event.target.repeatPassword.value;
+    const repeatPassword = event.target.repeatPassword.value;
+
+    if (newPassword !== repeatPassword) {
+      setMessage(
+        <>
+          <Modal.Body>
+            <div className="text-center">
+              <HiXCircle className="mx-auto mb-4 h-14 w-14 text-red-800 dark:text-gray-200" />
+              <h3 className="mb-5 text-2xl font-bold text-red-800 dark:text-gray-400">
+                Oops!
+              </h3>
+              <p>
+                It seems like the passwords you entered don't match. Please
+                double-check and try again.!
+              </p>
+            </div>
+          </Modal.Body>
+        </>
+      );
+      setResponseModal(true);
+      return;
+    }
 
     const changePasswordCredential = {
       currentPassword,
