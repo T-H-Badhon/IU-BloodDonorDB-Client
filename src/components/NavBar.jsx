@@ -44,7 +44,7 @@ const NavBar = () => {
               Be a Donor
             </Link>
           ) : null}
-          {role == "donor" ? (
+          {role != "admin" ? (
             <Link className="text-red-600 hover:text-xl" to="/addBloodRequest">
               Add Blood Request
             </Link>

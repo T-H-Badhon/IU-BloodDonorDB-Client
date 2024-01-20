@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { Modal, Spinner } from "flowbite-react";
-import { useNavigate } from "react-router-dom";
+import Login from "../pages/Login";
 
 // eslint-disable-next-line react/prop-types
 const PrivateRoutes = ({ children }) => {
   const { authorized, loading } = useContext(AuthContext);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   if (loading) {
     return (
@@ -28,7 +28,7 @@ const PrivateRoutes = ({ children }) => {
   if (authorized) {
     return children;
   } else {
-    navigate("/login");
+    return <Login></Login>;
   }
 };
 

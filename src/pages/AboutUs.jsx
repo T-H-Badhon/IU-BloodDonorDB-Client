@@ -15,8 +15,8 @@ const AboutUs = () => {
         </p>
       </div>
       <div className="my-10">
+        <h1 className="font-bold text-xl mb-2">Who We Are:</h1>
         <p>
-          <h1 className="font-bold text-xl mb-2">Who We Are:</h1>
           <Link className="text-red-500 font-bold" to="/">
             IU DonorDB
           </Link>{" "}
@@ -29,8 +29,8 @@ const AboutUs = () => {
         </p>
       </div>
       <div className="my-10">
+        <h1 className="font-bold text-xl mb-2">Our Vision:</h1>
         <p>
-          <h1 className="font-bold text-xl mb-2">Our Vision:</h1>
           Our vision is simple yet profound a world where no one faces a
           shortage of blood when they need it most. We envision a global network
           of compassionate individuals who recognize the importance of giving
@@ -40,8 +40,8 @@ const AboutUs = () => {
         </p>
       </div>
       <div className="my-10">
+        <h1 className="font-bold text-xl mb-2">What Sets Us Apart:</h1>
         <p>
-          <h1 className="font-bold text-xl mb-2">What Sets Us Apart:</h1>
           At{" "}
           <Link className="text-red-500 font-bold" to="/">
             IU DonorDB
@@ -56,10 +56,10 @@ const AboutUs = () => {
         </p>
       </div>
       <div className="my-10">
+        <h1 className="font-bold text-xl mb-2">
+          How You Can Make a Difference:
+        </h1>
         <p>
-          <h1 className="font-bold text-xl mb-2">
-            How You Can Make a Difference:
-          </h1>
           Whether you are a first-time donor or a regular supporter,{" "}
           <Link className="text-red-500 font-bold" to="/">
             IU DonorDB
@@ -71,8 +71,8 @@ const AboutUs = () => {
         </p>
       </div>
       <div className="my-10">
+        <h1 className="font-bold text-xl mb-2">Get Involved:</h1>
         <p>
-          <h1 className="font-bold text-xl mb-2">Get Involved:</h1>
           Ready to be a part of something bigger than yourself? Explore our
           website to learn more about blood donation, find local drives and
           events, and discover how you can contribute to our shared mission.
