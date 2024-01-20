@@ -39,18 +39,27 @@ const NavBar = () => {
           <Link className="text-red-600 hover:text-xl" to="findDonor">
             Find Donor
           </Link>
-          <Link className="text-red-600 hover:text-xl" to="/registration">
-            Be a Donor
-          </Link>
+          {!authorized ? (
+            <Link className="text-red-600 hover:text-xl" to="/registration">
+              Be a Donor
+            </Link>
+          ) : null}
           <Link className="text-red-600 hover:text-xl" to="/addBloodRequest">
             Add Blood Request
           </Link>
-          <Link className="text-red-600 hover:text-xl" to="/allBloodRequest">
-            All Blood Requests
-          </Link>
-          <Link className="text-red-600 hover:text-xl" to="/blogs">
-            Community
-          </Link>
+          {authorized ? (
+            <>
+              <Link
+                className="text-red-600 hover:text-xl"
+                to="/allBloodRequest"
+              >
+                All Blood Requests
+              </Link>
+              <Link className="text-cyan-600 hover:text-xl" to="/blogs">
+                Community
+              </Link>
+            </>
+          ) : null}
           <Link className="text-red-600 hover:text-xl" to="/aboutus">
             About Us
           </Link>

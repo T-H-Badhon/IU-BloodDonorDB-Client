@@ -64,7 +64,6 @@ const RegistrationForm = () => {
     };
     setLocalLoading(true);
     createDonor(userDate, donorData).then((response) => {
-      console.log(response);
       if (response.success) {
         setMessage(
           <>

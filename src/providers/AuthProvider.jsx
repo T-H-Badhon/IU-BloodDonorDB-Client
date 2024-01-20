@@ -1,4 +1,5 @@
-import React, { createContext, useState } from "react";
+/* eslint-disable react/prop-types */
+import { createContext, useState } from "react";
 
 export const AuthContext = createContext();
 
@@ -6,7 +7,7 @@ const AuthProvider = ({ children }) => {
   const [authorized, setAuthorize] = useState(false);
   const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  console.log(authorized);
   const createAdmin = async (userData, adminData, superAdminKey) => {
     const newAdmin = {
       userData,
@@ -63,11 +64,11 @@ const AuthProvider = ({ children }) => {
         }
       });
   };
-  const logIn = (loginCredential) => {
+  const logIn = async (loginCredential) => {
     const loginData = {
       loginCredential,
     };
-    fetch("http://localhost:5000/api/auth/login", {
+    return fetch("http://localhost:5000/api/auth/login", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -76,9 +77,16 @@ const AuthProvider = ({ children }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        localStorage.setItem("AC_token", data.result.token);
-        setAuthorize(true);
-        console.log(data);
+        if (data.success == true) {
+          localStorage.setItem("AC_token", data.data.token);
+          setAuthorize(true);
+          setRole(data.data.role);
+          return {
+            success: true,
+          };
+        } else {
+          return { success: false, errorMessage: data.errorMessage };
+        }
       });
   };
 
@@ -88,21 +96,32 @@ const AuthProvider = ({ children }) => {
     console.log("logOut");
   };
 
-  const changePassword = (changePasswordCredential) => {
-    const changePasswordData = {
-      changePasswordCredential,
-    };
-    fetch("http://localhost:5000/api/auth/change-password", {
+  const changePassword = async (changePasswordCredential) => {
+    return fetch("http://localhost:5000/api/auth/change-password", {
       method: "PUT",
       headers: {
         "content-type": "application/json",
         authorization: localStorage.getItem("AC_token"),
       },
-      body: JSON.stringify(changePasswordData),
+      body: JSON.stringify({ changePasswordCredential }),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        if (data.success == true) {
+          localStorage.setItem("AC_token", data.data.token);
+          setAuthorize(true);
+          setRole(data.data.role);
+          return {
+            success: true,
+          };
+        } else {
+          return {
+            success: false,
+            message: data.message,
+            errorMessage: data.errorMessage,
+          };
+        }
       });
   };
   const deleteProfile = () => {

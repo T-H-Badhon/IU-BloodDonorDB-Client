@@ -66,7 +66,6 @@ const AdminRegistration = () => {
     };
     setLocalLoading(true);
     createAdmin(userDate, adminData, superAdminKey).then((response) => {
-      console.log(response);
       if (response.success) {
         setMessage(
           <>

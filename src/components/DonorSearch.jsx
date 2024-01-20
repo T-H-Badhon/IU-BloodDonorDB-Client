@@ -1,16 +1,26 @@
+/* eslint-disable react/prop-types */
 import { Button, Label, Radio, Select } from "flowbite-react";
 
-const DonorSearch = () => {
+const DonorSearch = ({ findDonors }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const bloodGroup = event.target.bloodGroup.value;
     const area = event.target.area.value;
     const donorType = event.target.donorType.value;
-    console.log(bloodGroup, area, donorType);
+    let query = "";
+    if (bloodGroup) {
+      query = "&bloodGroup=" + `${encodeURIComponent(bloodGroup)}`;
+    }
+    if (area) {
+      query = query + "&area=" + area;
+    }
+    if (donorType) {
+      query = query + "&isAvailable=true";
+    }
+    findDonors(query);
   };
   return (
-    <div className="container mx-auto md:h-36  my-20  ">
+    <div className="container mx-auto md:h-36  my-5  ">
       <h1 className="text-3xl text-red-600 text-center font-bold p-2">
         Search Donor
       </h1>
@@ -73,8 +83,11 @@ const DonorSearch = () => {
         </div>
         <div>
           <div className="">
-            <Select id="area" required>
-              <option className="text-lg ">Select Area</option>
+            <Label className="text-xl text-white" value="Area" />
+            <Select id="area">
+              <option className="text-lg " value="">
+                All
+              </option>
               <option className="text-lg ">Kushtia</option>
               <option className="text-lg ">Jhinaidah</option>
               <option className="text-lg ">Sheikhpara</option>
@@ -83,10 +96,12 @@ const DonorSearch = () => {
         </div>
         <div>
           <div className="">
-            <Select id="donorType" required>
-              <option className="text-lg ">Donor Type</option>
-              <option className="text-lg ">All</option>
-              <option className="text-lg ">Eligible</option>
+            <Label className="text-xl text-white" value="Donor type" />
+            <Select id="donorType">
+              <option className="text-lg " value="">
+                All
+              </option>
+              <option className="text-lg ">Only Available</option>
             </Select>
           </div>
         </div>

@@ -19,7 +19,7 @@ const BDFooter = () => {
               <Link className="text-red-600 m-2" to="/">
                 Home
               </Link>
-              <Link className="text-red-600 m-2" to="/blogs">
+              <Link className="text-cyan-600 m-2" to="/blogs">
                 Community
               </Link>
               <Link className="text-red-600 m-2" to="/aboutUs">

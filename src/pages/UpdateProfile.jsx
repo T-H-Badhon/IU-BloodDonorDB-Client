@@ -1,25 +1,91 @@
-import { Button, Label, TextInput, Select } from "flowbite-react";
-import { useContext } from "react";
+import {
+  Button,
+  Label,
+  TextInput,
+  Select,
+  Modal,
+  Spinner,
+} from "flowbite-react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 
 const UpdateProfile = () => {
-  const { user } = useContext(AuthContext);
+  const { role } = useContext(AuthContext);
+  const [profileData, setProfileData] = useState(null);
+  const [localLoading, setLocalLoading] = useState(true);
+  useEffect(() => {
+    const link =
+      role == "admin"
+        ? "http://localhost:5000/api/admin/me"
+        : "http://localhost:5000/api/donors/donor/profile";
+
+    fetch(`${link}`, {
+      method: "GET",
+      headers: {
+        authorization: localStorage.getItem("AC_token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setLocalLoading(false);
+        setProfileData(data.data);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const name = event.target.name.value;
     const bloodGroup = event.target.bloodGroup.value;
-    const email = event.target.email.value;
     const phone = event.target.phone.value;
-    const presentAddress = event.target.presentAddress.value;
-    const donorArea = event.target.donorArea.value;
+    const address = event.target.presentAddress.value;
+    const area = event.target.donorArea.value;
 
-    console.log(name, bloodGroup, email, phone, presentAddress, donorArea);
+    const updateData = {
+      name,
+      bloodGroup,
+      phone,
+      address,
+      area,
+    };
+    setLocalLoading(true);
+    const link =
+      role == "admin"
+        ? "http://localhost:5000/api/admin/me"
+        : "http://localhost:5000/api/donors/donor/profile";
+
+    fetch(`${link}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+        authorization: localStorage.getItem("AC_token"),
+      },
+      body: JSON.stringify({ updateData }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setProfileData(data.data);
+        setLocalLoading(false);
+      });
   };
   return (
     <div className="container mx-auto md:h-5/6 md:my-32">
+      {localLoading ? (
+        <Modal show={localLoading} size="md" popup>
+          <Modal.Body>
+            <div className="text-center my-5">
+              <Spinner
+                color="failure"
+                aria-label="Extra large spinner example"
+                size="xl"
+              />
+            </div>
+            <h1 className="text-center text-xl text-red-500">Please Wait...</h1>
+          </Modal.Body>
+        </Modal>
+      ) : null}
       <h1 className="text-center font-bold text-red-600 text-xl mb-10">
-        Update Information
+        Update Profile
       </h1>
       <form
         onSubmit={handleSubmit}
@@ -34,7 +100,7 @@ const UpdateProfile = () => {
               id="name"
               type="text"
               placeholder="Name"
-              defaultValue={user.name}
+              defaultValue={profileData?.name}
               required
               shadow
             />
@@ -45,7 +111,7 @@ const UpdateProfile = () => {
             </div>
             <div className="">
               <Select id="bloodGroup" required>
-                <option className="text-lg ">{user.bloodGroup} </option>
+                <option className="text-lg ">{profileData?.bloodGroup} </option>
                 <option className="text-lg ">A+</option>
                 <option className="text-lg ">B+</option>
                 <option className="text-lg ">O+</option>
@@ -67,9 +133,10 @@ const UpdateProfile = () => {
               id="email"
               type="email"
               placeholder="example@email.com"
-              defaultValue={user.email}
+              defaultValue={profileData?.userId.email}
               required
               shadow
+              disabled
             />
           </div>
           <div className="md:col-span-2">
@@ -80,7 +147,7 @@ const UpdateProfile = () => {
               id="phone"
               type="text"
               placeholder="017XXXXXXXX"
-              defaultValue={user.phone}
+              defaultValue={profileData?.phone}
               required
               shadow
             />
@@ -95,7 +162,7 @@ const UpdateProfile = () => {
               id="presentAddress"
               type="text"
               placeholder="Address"
-              defaultValue={user.presentAddress}
+              defaultValue={profileData?.address}
               required
               shadow
             />
@@ -106,7 +173,7 @@ const UpdateProfile = () => {
             </div>
             <div className="">
               <Select id="donorArea" required>
-                <option className="text-lg ">{user.area}</option>
+                <option className="text-lg ">{profileData?.area}</option>
                 <option className="text-lg ">Kushtia</option>
                 <option className="text-lg ">Jhinaidah</option>
                 <option className="text-lg ">Sheikhpara</option>

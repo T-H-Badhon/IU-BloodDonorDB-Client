@@ -27,7 +27,6 @@ const Blogs = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setBlogs(data.data);
         setLocalLoading(false);
       });
@@ -41,6 +40,7 @@ const Blogs = () => {
       },
     })
       .then((res) => res.json())
+      // eslint-disable-next-line no-unused-vars
       .then((data) => {
         myBlogs();
       });
@@ -67,7 +67,6 @@ const Blogs = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (!data.success) {
           setAlertState(true);
         }
@@ -87,7 +86,6 @@ const Blogs = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setBlogs(data.data);
         setLocalLoading(false);
       });
@@ -104,7 +102,6 @@ const Blogs = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setBlogs(data.data);
         setLocalLoading(false);
       });
@@ -127,7 +124,9 @@ const Blogs = () => {
                 size="xl"
               />
             </div>
-            <h1 className="text-center text-xl text-lime-500">Processing...</h1>
+            <h1 className="text-center text-xl text-lime-500">
+              Please Wait...
+            </h1>
           </Modal.Body>
         </Modal>
       ) : null}
@@ -182,16 +181,22 @@ const Blogs = () => {
         </div>
       </div>
       <div className="max-w-xl mx-auto">
-        <h1 className="text-xl font-bold text-cyan-500 mt-10">Blogs</h1>
+        <h1 className="text-2xl font-bold text-cyan-500 mt-10">Blogs:</h1>
         <div className="mt-10">
-          {blogs.map((blog) => (
-            <BlogCard
-              blog={blog}
-              ownerShip={owner}
-              deleteBlog={deleteBlog}
-              key={blog?._id}
-            ></BlogCard>
-          ))}
+          {blogs.length ? (
+            blogs.map((blog) => (
+              <BlogCard
+                blog={blog}
+                ownerShip={owner}
+                deleteBlog={deleteBlog}
+                key={blog?._id}
+              ></BlogCard>
+            ))
+          ) : (
+            <h1 className="text-3xl md:my-20 my-5 text-cyan-500 text-center">
+              No Blogs Found!
+            </h1>
+          )}
         </div>
       </div>
     </div>
