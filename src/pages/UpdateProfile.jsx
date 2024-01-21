@@ -8,11 +8,14 @@ import {
 } from "flowbite-react";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import { HiXCircle } from "react-icons/hi";
 
 const UpdateProfile = () => {
   const { role } = useContext(AuthContext);
   const [profileData, setProfileData] = useState(null);
-  const [localLoading, setLocalLoading] = useState(true);
+  const [responseModal, setResponseModal] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [localLoading, setLocalLoading] = useState(false);
   useEffect(() => {
     const link =
       role == "admin"
@@ -27,8 +30,8 @@ const UpdateProfile = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setLocalLoading(false);
         setProfileData(data.data);
+        setLocalLoading(false);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -64,8 +67,26 @@ const UpdateProfile = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setProfileData(data.data);
-        setLocalLoading(false);
+        if (data.success == false) {
+          setMessage(
+            <>
+              <Modal.Body>
+                <div className="text-center">
+                  <HiXCircle className="mx-auto mb-4 h-14 w-14 text-red-800 dark:text-gray-200" />
+                  <h3 className="mb-5 text-2xl font-bold text-red-800 dark:text-gray-400">
+                    Update Failed!!
+                  </h3>
+                  <p>{data?.errorMessage}</p>
+                </div>
+              </Modal.Body>
+            </>
+          );
+          setResponseModal(true);
+          setLocalLoading(false);
+        } else {
+          setProfileData(data.data);
+          setLocalLoading(false);
+        }
       });
   };
   return (
@@ -84,6 +105,17 @@ const UpdateProfile = () => {
           </Modal.Body>
         </Modal>
       ) : null}
+      <div>
+        <Modal
+          show={responseModal}
+          size="md"
+          onClose={() => setResponseModal(false)}
+          popup
+        >
+          <Modal.Header />
+          {message}
+        </Modal>
+      </div>
       <h1 className="text-center font-bold text-red-600 text-xl mb-10">
         Update Profile
       </h1>
