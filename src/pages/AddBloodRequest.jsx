@@ -152,7 +152,7 @@ const AddBloodRequest = () => {
           </div>
           <div>
             <div className="mb-2 block">
-              <Label htmlFor="name" value="Your Name" />
+              <Label htmlFor="name" value="Patient name" />
             </div>
             <TextInput id="name" type="text" />
           </div>

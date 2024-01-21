@@ -131,7 +131,7 @@ const Profile = () => {
                 size="xl"
               />
             </div>
-            <h1 className="text-center text-xl text-red-500">Please Wait...</h1>
+            <h3 className="text-center text-xl text-red-500">Please Wait...</h3>
           </Modal.Body>
         </Modal>
       ) : null}
@@ -233,21 +233,19 @@ const Profile = () => {
             </h1>
           </div>
           <div className="col-span-1">
-            <h1>
-              {profileData?.isAvailable ? (
-                <Tooltip content="Mark yourself Unavailable">
-                  <Button onClick={changeState} color="failure">
-                    Change Status
-                  </Button>
-                </Tooltip>
-              ) : (
-                <Tooltip content="Mark yourself Available">
-                  <Button onClick={changeState} color="success">
-                    Change Status
-                  </Button>
-                </Tooltip>
-              )}
-            </h1>
+            {profileData?.isAvailable ? (
+              <Tooltip content="Mark yourself Unavailable">
+                <Button onClick={changeState} color="failure">
+                  Change Status
+                </Button>
+              </Tooltip>
+            ) : (
+              <Tooltip content="Mark yourself Available">
+                <Button onClick={changeState} color="success">
+                  Change Status
+                </Button>
+              </Tooltip>
+            )}
           </div>
           <div className="col-span-1 text-red-500 font-bold">
             <h1>Last donate Date:</h1>

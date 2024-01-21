@@ -55,7 +55,7 @@ const Blogs = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    setAlertState(false);
     const title = event.target.title.value;
     const details = event.target.details.value;
 
@@ -166,7 +166,12 @@ const Blogs = () => {
                   <div className="mb-2 block">
                     <Label htmlFor="title" value="Blog Title" />
                   </div>
-                  <TextInput id="title" type="text" placeholder="Title..." />
+                  <TextInput
+                    id="title"
+                    type="text"
+                    placeholder="Title..."
+                    required
+                  />
                 </div>
                 <div className="max-w-md">
                   <div className="mb-2 block">

@@ -23,7 +23,6 @@ const AuthProvider = ({ children }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.success == true) {
           localStorage.setItem("AC_token", data.data.token);
           localStorage.setItem("role", data.data.role);
@@ -52,7 +51,6 @@ const AuthProvider = ({ children }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.success == true) {
           localStorage.setItem("AC_token", data.data.token);
           setAuthorize(true);
