@@ -19,7 +19,8 @@ const AddBloodRequest = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const bloodGroup = event.target.bloodGroup.value;
+    const blood = event.target.bloodGroup.value;
+    const bloodGroup = encodeURIComponent(blood);
     const area = event.target.requestArea.value;
     const patientName = event.target.name.value;
     const phone = event.target.phone.value;

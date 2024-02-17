@@ -23,7 +23,8 @@ const RegistrationForm = () => {
     event.preventDefault();
 
     const name = event.target.name.value;
-    const bloodGroup = event.target.bloodGroup.value;
+    const blood = event.target.bloodGroup.value;
+    const bloodGroup = encodeURIComponent(blood);
     const email = event.target.email.value;
     const phone = event.target.phone.value;
     const address = event.target.presentAddress.value;
