@@ -7,7 +7,7 @@ const AllDonors = () => {
   const [localLoading, setLocalLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/users/donors", {
+    fetch("https://final-iu-donordb-server.vercel.app/api/users/donors", {
       method: "GET",
       headers: {
         authorization: localStorage.getItem("AC_token"),
@@ -25,12 +25,15 @@ const AllDonors = () => {
 
     const searchTerm = event.target.searchTerm.value;
     setLocalLoading(true);
-    fetch(`http://localhost:5000/api/users/donors?searchTerm=${searchTerm}`, {
-      method: "GET",
-      headers: {
-        authorization: localStorage.getItem("AC_token"),
-      },
-    })
+    fetch(
+      `https://final-iu-donordb-server.vercel.app/api/users/donors?searchTerm=${searchTerm}`,
+      {
+        method: "GET",
+        headers: {
+          authorization: localStorage.getItem("AC_token"),
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setDonors(data.data);

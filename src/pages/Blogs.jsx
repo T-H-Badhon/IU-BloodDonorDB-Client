@@ -21,7 +21,7 @@ const Blogs = () => {
 
   const [blogs, setBlogs] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/api/blogs/", {
+    fetch("https://final-iu-donordb-server.vercel.app/api/blogs/", {
       method: "GET",
       headers: {
         authorization: localStorage.getItem("AC_token"),
@@ -37,8 +37,8 @@ const Blogs = () => {
   const deleteBlog = (id) => {
     const link =
       role == "admin"
-        ? "http://localhost:5000/api/blogs"
-        : "http://localhost:5000/api/blogs/my-blogs";
+        ? "https://final-iu-donordb-server.vercel.app/api/blogs"
+        : "https://final-iu-donordb-server.vercel.app/api/blogs/my-blogs";
 
     fetch(`${link}/${id}`, {
       method: "DELETE",
@@ -64,7 +64,7 @@ const Blogs = () => {
       details,
     };
 
-    fetch("http://localhost:5000/api/blogs/create-blog", {
+    fetch("https://final-iu-donordb-server.vercel.app/api/blogs/create-blog", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -85,7 +85,7 @@ const Blogs = () => {
   const myBlogs = () => {
     setOwner(true);
     setLocalLoading(true);
-    fetch("http://localhost:5000/api/blogs/my-blogs", {
+    fetch("https://final-iu-donordb-server.vercel.app/api/blogs/my-blogs", {
       method: "GET",
       headers: {
         authorization: localStorage.getItem("AC_token"),
@@ -101,7 +101,7 @@ const Blogs = () => {
   const allBlogs = () => {
     setOwner(false);
     setLocalLoading(true);
-    fetch("http://localhost:5000/api/blogs/", {
+    fetch("https://final-iu-donordb-server.vercel.app/api/blogs/", {
       method: "GET",
       headers: {
         authorization: localStorage.getItem("AC_token"),

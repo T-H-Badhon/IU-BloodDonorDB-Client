@@ -26,8 +26,8 @@ const Profile = () => {
   useEffect(() => {
     const link =
       role == "admin"
-        ? "http://localhost:5000/api/admin/me"
-        : "http://localhost:5000/api/donors/donor/profile";
+        ? "https://final-iu-donordb-server.vercel.app/api/admin/me"
+        : "https://final-iu-donordb-server.vercel.app/api/donors/donor/profile";
 
     fetch(`${link}`, {
       method: "GET",
@@ -50,8 +50,8 @@ const Profile = () => {
     setLocalLoading(true);
     const link =
       role == "admin"
-        ? "http://localhost:5000/api/admin/me"
-        : "http://localhost:5000/api/donors/donor/profile";
+        ? "https://final-iu-donordb-server.vercel.app/api/admin/me"
+        : "https://final-iu-donordb-server.vercel.app/api/donors/donor/profile";
 
     fetch(`${link}`, {
       method: "PUT",
@@ -71,8 +71,8 @@ const Profile = () => {
   const deleteAccount = () => {
     const link =
       role == "admin"
-        ? "http://localhost:5000/api/admin/me"
-        : "http://localhost:5000/api/donors/donor/profile";
+        ? "https://final-iu-donordb-server.vercel.app/api/admin/me"
+        : "https://final-iu-donordb-server.vercel.app/api/donors/donor/profile";
 
     deleteProfile(link).then((response) => {
       if (response.success) {

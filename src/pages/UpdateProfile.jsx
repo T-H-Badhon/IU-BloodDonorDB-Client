@@ -19,8 +19,8 @@ const UpdateProfile = () => {
   useEffect(() => {
     const link =
       role == "admin"
-        ? "http://localhost:5000/api/admin/me"
-        : "http://localhost:5000/api/donors/donor/profile";
+        ? "https://final-iu-donordb-server.vercel.app/api/admin/me"
+        : "https://final-iu-donordb-server.vercel.app/api/donors/donor/profile";
 
     fetch(`${link}`, {
       method: "GET",
@@ -54,8 +54,8 @@ const UpdateProfile = () => {
     setLocalLoading(true);
     const link =
       role == "admin"
-        ? "http://localhost:5000/api/admin/me"
-        : "http://localhost:5000/api/donors/donor/profile";
+        ? "https://final-iu-donordb-server.vercel.app/api/admin/me"
+        : "https://final-iu-donordb-server.vercel.app/api/donors/donor/profile";
 
     fetch(`${link}`, {
       method: "PUT",

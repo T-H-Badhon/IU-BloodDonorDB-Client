@@ -13,13 +13,16 @@ const ForgetPassword = () => {
     setLocalLoading(true);
     const email = event.target.email.value;
 
-    fetch("http://localhost:5000/api/auth/forget-password", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    })
+    fetch(
+      "https://final-iu-donordb-server.vercel.app/api/auth/forget-password",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {

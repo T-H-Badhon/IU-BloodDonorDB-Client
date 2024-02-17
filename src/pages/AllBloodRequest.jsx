@@ -10,7 +10,7 @@ const AllBloodRequest = () => {
   const [owner, setOwner] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/blood-requests/", {
+    fetch("https://final-iu-donordb-server.vercel.app/api/blood-requests/", {
       method: "GET",
       headers: {
         authorization: localStorage.getItem("AC_token"),
@@ -26,12 +26,15 @@ const AllBloodRequest = () => {
   const myRequests = () => {
     setOwner(true);
     setLocalLoading(true);
-    fetch("http://localhost:5000/api/blood-requests/my-requests", {
-      method: "GET",
-      headers: {
-        authorization: localStorage.getItem("AC_token"),
-      },
-    })
+    fetch(
+      "https://final-iu-donordb-server.vercel.app/api/blood-requests/my-requests",
+      {
+        method: "GET",
+        headers: {
+          authorization: localStorage.getItem("AC_token"),
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setRequests(data.data);
@@ -42,7 +45,7 @@ const AllBloodRequest = () => {
   const allRequests = () => {
     setOwner(false);
     setLocalLoading(true);
-    fetch("http://localhost:5000/api/blood-requests/", {
+    fetch("https://final-iu-donordb-server.vercel.app/api/blood-requests/", {
       method: "GET",
       headers: {
         authorization: localStorage.getItem("AC_token"),
@@ -58,8 +61,8 @@ const AllBloodRequest = () => {
   const deleteRequest = (id) => {
     const link =
       role == "admin"
-        ? "http://localhost:5000/api/blood-requests"
-        : "http://localhost:5000/api/blood-requests/my-requests";
+        ? "https://final-iu-donordb-server.vercel.app/api/blood-requests"
+        : "https://final-iu-donordb-server.vercel.app/api/blood-requests/my-requests";
 
     fetch(`${link}/${id}`, {
       method: "DELETE",

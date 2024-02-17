@@ -9,7 +9,7 @@ const Network = () => {
   const [donors, setDonors] = useState(0);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/donors/count")
+    fetch("https://final-iu-donordb-server.vercel.app/api/donors/count")
       .then((res) => res.json())
       .then((data) => {
         setDonors(data.data);

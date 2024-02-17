@@ -14,14 +14,17 @@ const DonorCard = ({ donor }) => {
       isBlocked: !status,
     };
     setLocalLoading(true);
-    fetch(`http://localhost:5000/api/users/${id}/changeBlockState`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-        authorization: localStorage.getItem("AC_token"),
-      },
-      body: JSON.stringify({ updateData }),
-    })
+    fetch(
+      `https://final-iu-donordb-server.vercel.app/api/users/${id}/changeBlockState`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+          authorization: localStorage.getItem("AC_token"),
+        },
+        body: JSON.stringify({ updateData }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setStatus(data?.data?.isBlocked);

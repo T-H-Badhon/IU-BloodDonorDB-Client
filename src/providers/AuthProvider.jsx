@@ -14,13 +14,16 @@ const AuthProvider = ({ children }) => {
       adminData,
       superKey: superAdminKey,
     };
-    return fetch("http://localhost:5000/api/auth/registerAdmin", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(newAdmin),
-    })
+    return fetch(
+      "https://final-iu-donordb-server.vercel.app/api/auth/registerAdmin",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(newAdmin),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.success == true) {
@@ -42,13 +45,16 @@ const AuthProvider = ({ children }) => {
       userData,
       donorData,
     };
-    return fetch("http://localhost:5000/api/auth/registerDonor", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(newDonor),
-    })
+    return fetch(
+      "https://final-iu-donordb-server.vercel.app/api/auth/registerDonor",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(newDonor),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.success == true) {
@@ -67,7 +73,7 @@ const AuthProvider = ({ children }) => {
     const loginData = {
       loginCredential,
     };
-    return fetch("http://localhost:5000/api/auth/login", {
+    return fetch("https://final-iu-donordb-server.vercel.app/api/auth/login", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -111,14 +117,17 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const changePassword = async (changePasswordCredential) => {
-    return fetch("http://localhost:5000/api/auth/change-password", {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-        authorization: localStorage.getItem("AC_token"),
-      },
-      body: JSON.stringify({ changePasswordCredential }),
-    })
+    return fetch(
+      "https://final-iu-donordb-server.vercel.app/api/auth/change-password",
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+          authorization: localStorage.getItem("AC_token"),
+        },
+        body: JSON.stringify({ changePasswordCredential }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.success == true) {

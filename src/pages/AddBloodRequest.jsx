@@ -35,14 +35,17 @@ const AddBloodRequest = () => {
       date,
     };
     setLocalLoading(true);
-    fetch("http://localhost:5000/api/blood-requests/create-request", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: localStorage.getItem("AC_token"),
-      },
-      body: JSON.stringify({ requestData }),
-    })
+    fetch(
+      "https://final-iu-donordb-server.vercel.app/api/blood-requests/create-request",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: localStorage.getItem("AC_token"),
+        },
+        body: JSON.stringify({ requestData }),
+      }
+    )
       .then((res) => res.json())
       .then((response) => {
         if (response.success) {

@@ -6,7 +6,7 @@ const FindDonor = () => {
   const [donors, setDonors] = useState([]);
 
   const findDonors = (query) => {
-    let link = "http://localhost:5000/api/donors/";
+    let link = "https://final-iu-donordb-server.vercel.app/api/donors/";
     if (query) {
       link = link + "?" + query;
     }
