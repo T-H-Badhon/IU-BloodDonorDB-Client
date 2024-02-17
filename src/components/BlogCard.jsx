@@ -14,8 +14,21 @@ const BlogCard = ({ blog, ownerShip, deleteBlog, role }) => {
           </Modal.Header>
           <Modal.Body>{blog.details} </Modal.Body>
           <Modal.Footer>
-            <div>
-              {ownerShip || role == "admin" ? (
+            {ownerShip ? (
+              <div>
+                <Button
+                  onClick={() => deleteBlog(blog._id)}
+                  gradientMonochrome="failure"
+                >
+                  Delete
+                </Button>
+              </div>
+            ) : role == "admin" ? (
+              <div>
+                <div className="mr-28 md:mr-48 lg:mr-96">
+                  <h1 className="text-sm">Author</h1>
+                  <h1 className="text-lg">{blog?.author?.name}</h1>
+                </div>
                 <div>
                   <Button
                     onClick={() => deleteBlog(blog._id)}
@@ -24,13 +37,13 @@ const BlogCard = ({ blog, ownerShip, deleteBlog, role }) => {
                     Delete
                   </Button>
                 </div>
-              ) : (
-                <div>
-                  <h1 className="text-sm">Author</h1>
-                  <h1 className="text-lg">{blog?.author?.name}</h1>
-                </div>
-              )}
-            </div>
+              </div>
+            ) : (
+              <div>
+                <h1 className="text-sm">Author</h1>
+                <h1 className="text-lg">{blog?.author?.name}</h1>
+              </div>
+            )}
           </Modal.Footer>
         </Modal>
       </div>

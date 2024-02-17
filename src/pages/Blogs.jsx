@@ -49,7 +49,7 @@ const Blogs = () => {
       .then((res) => res.json())
       // eslint-disable-next-line no-unused-vars
       .then((data) => {
-        myBlogs();
+        allBlogs();
       });
   };
 

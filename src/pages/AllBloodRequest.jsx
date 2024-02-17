@@ -1,8 +1,10 @@
 import { Button, Modal, Spinner } from "flowbite-react";
 import BloodRequestCard from "../components/BloodRequestCard";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 const AllBloodRequest = () => {
+  const { role } = useContext(AuthContext);
   const [requests, setRequests] = useState([]);
   const [localLoading, setLocalLoading] = useState(true);
   const [owner, setOwner] = useState(false);
@@ -53,6 +55,25 @@ const AllBloodRequest = () => {
       });
   };
 
+  const deleteRequest = (id) => {
+    const link =
+      role == "admin"
+        ? "http://localhost:5000/api/blood-requests"
+        : "http://localhost:5000/api/blood-requests/my-requests";
+
+    fetch(`${link}/${id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: localStorage.getItem("AC_token"),
+      },
+    })
+      .then((res) => res.json())
+      // eslint-disable-next-line no-unused-vars
+      .then((data) => {
+        allRequests();
+      });
+  };
+
   return (
     <div className="container mx-auto min-h-screen">
       {localLoading ? (
@@ -71,7 +92,7 @@ const AllBloodRequest = () => {
       ) : null}
       <div>
         <div>
-          {!owner ? (
+          {!owner && role !== "admin" ? (
             <Button onClick={myRequests} color="failure">
               My requests
             </Button>
@@ -88,6 +109,9 @@ const AllBloodRequest = () => {
           ? requests.map((request) => (
               <BloodRequestCard
                 request={request}
+                ownerShip={owner}
+                deleteRequest={deleteRequest}
+                role={role}
                 key={request?._id}
               ></BloodRequestCard>
             ))

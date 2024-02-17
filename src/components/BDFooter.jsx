@@ -10,7 +10,7 @@ const BDFooter = () => {
           <div className="w-full justify-between sm:flex sm:items-center sm:justify-between ">
             <Footer.Brand
               className="mr-3 h-9 sm:h-9 text-red-600"
-              href="https://flowbite.com"
+              href="#"
               src={logo}
               alt="Flowbite Logo"
               name="IU DonorDB"
@@ -19,7 +19,7 @@ const BDFooter = () => {
               <Link className="text-red-600 m-2" to="/">
                 Home
               </Link>
-              <Link className="text-cyan-600 m-2" to="/blogs">
+              <Link className="text-red-600 m-2" to="/blogs">
                 Community
               </Link>
               <Link className="text-red-600 m-2" to="/aboutUs">
@@ -32,7 +32,7 @@ const BDFooter = () => {
           </div>
           <Footer.Divider />
           <Footer.Copyright
-            href="#"
+            href="https://www.facebook.com/thbadhons"
             by="MD. Tanvir Hasan, CSE, IU"
             year={2024}
           />

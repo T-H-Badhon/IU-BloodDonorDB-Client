@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 
-import { Card } from "flowbite-react";
+import { Button, Card } from "flowbite-react";
 
-const BloodRequestCard = ({ request }) => {
+const BloodRequestCard = ({ request, ownerShip, deleteRequest, role }) => {
   return (
     <Card className="min-w-full">
       <h5 className="text-2xl  tracking-tight  dark:text-white">
@@ -24,6 +24,18 @@ const BloodRequestCard = ({ request }) => {
       <p className="font-normal  dark:text-gray-400">
         Reason: <span className="font-bold text-red-500">{request.reason}</span>
       </p>
+      <div>
+        {ownerShip || role == "admin" ? (
+          <div>
+            <Button
+              onClick={() => deleteRequest(request._id)}
+              gradientMonochrome="failure"
+            >
+              Delete
+            </Button>
+          </div>
+        ) : null}
+      </div>
     </Card>
   );
 };
